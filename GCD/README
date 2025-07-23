@@ -1,4 +1,4 @@
-My Verilog GCD Calculator ⚙️
+Verilog GCD Calculator 
 Here's a 16-bit Greatest Common Divisor (GCD) calculator I built in Verilog. I implemented the subtractive Euclidean algorithm by splitting my logic into a Datapath and a Controller.
 
 How I Built It
