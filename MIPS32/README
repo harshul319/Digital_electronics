@@ -1,1 +1,38 @@
+5-Stage Pipelined MIPS Processor
+This is an implementation of a simple 5-stage pipelined MIPS-like processor in Verilog. It's not a full MIPS architecture but handles a core set of arithmetic, memory, and branch instructions.
 
+How I Designed It
+I structured the processor around a classic 5-stage pipeline: IF, ID, EX, MEM, and WB. To make the timing work, I used a two-phase clocking scheme, with some stages triggering on the positive edge and others on the negative edge.
+
+
+IF (Instruction Fetch): On posedge clk, it fetches the next instruction from memory. It also handles branch prediction by checking results from the EX/MEM stage.
+
+
+ID (Instruction Decode): On negedge clk, it decodes the fetched instruction, determines the instruction type (like R-type or I-type), and reads the required values from the register file (Reg).
+
+EX (Execute): On posedge clk, the ALU (Arithmetic Logic Unit) performs the main calculation. For arithmetic instructions, it computes the result; for memory instructions, it calculates the address.
+
+MEM (Memory Access): On negedge clk, it handles memory operations. It performs a read from memory for a 
+
+LW or a write to memory for a SW.
+
+
+WB (Write Back): On posedge clk, the final result (either from the ALU or memory) is written back into the register file.
+
+The Instruction Set I Implemented
+I included a basic set of instructions with custom opcodes:
+
+
+R-Type (register-register): ADD, SUB, AND, OR, SLT, MUL.
+
+
+I-Type (register-immediate): ADDI, SUBI, SLTI.
+
+
+Memory: LW (Load Word) and SW (Store Word).
+
+
+Branch: BEQZ (Branch if Equal to Zero) and BNEQZ (Branch if Not Equal to Zero).
+
+
+Halt: A HLT instruction to stop the processor
