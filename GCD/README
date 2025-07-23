@@ -1,1 +1,48 @@
+My Verilog GCD Calculator ⚙️
+Here's a 16-bit Greatest Common Divisor (GCD) calculator I built in Verilog. I implemented the subtractive Euclidean algorithm by splitting my logic into a Datapath and a Controller.
 
+How I Built It
+The Datapath (GCD_datapath.v): This is where the numbers get crunched. I used two registers, 
+
+A and B, to hold the values. I added a subtractor to find their difference and a comparator to check which number is bigger. I wired it all together with multiplexers to control the data flow.
+
+
+
+
+The Controller (ControllerFSM.v): I made a Finite State Machine (FSM) to be the brain of the operation. It steps through a few states to get the job done:
+
+
+Load A (S0): When I assert the start signal, it first loads a number into register A.
+
+
+
+Load B (S1): In the next state, it loads the second number into register B.
+
+
+Compute (S2-S4): This is my main loop. It keeps subtracting the smaller number from the larger one until they're the same.
+
+
+Done (S5): Once A equals B, the FSM signals that it's finished by setting the done flag to 1.
+
+My Files
+
+Modules.v: My basic reusable parts like the register, subtractor, comparator, and MUX.
+
+
+Datapath.v: The file where I define the datapath structure.
+
+
+ControllerFSM.v: My FSM logic for controlling the datapath.
+
+
+TestBench.v: The test I wrote to make sure everything works correctly.
+
+Simulation.png: A screenshot of my simulation results.
+
+Testing My Code
+I used my testbench (
+
+TestBench.v) to check the GCD for 143 and 78. You can see in the 
+
+
+Simulation.png waveform that it worked as expected. The final value in register A is 13 (shown as 000d in hex), and the done signal correctly goes high to show the calculation is complete
